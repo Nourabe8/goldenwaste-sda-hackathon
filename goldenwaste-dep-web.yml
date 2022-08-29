@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goldenwaste-dep-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goldenwaste
+  template:
+    metadata:
+      labels:
+        app: goldenwaste
+    spec:
+      containers:
+        - name: web
+          env:
+            - name: GOLDEN_DB_URL
+              value: mysql
+            - name: GOLDEN_DB_PORT
+              value: '3306'  
+            - name: GOLDEN_DB_NAME
+              value: goldenwaste  
+            - name: GOLDEN_DB_USERNAME
+              value: root  
+            - name: GOLDEN_DB_PASSWORD
+              value: DevOps2022 
+          image: abdullah01455/goldenwebapp
+          ports:
+          - containerPort: 80
+
