@@ -1,0 +1,120 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: DevOps2022
+            - name: MYSQL_DATABASE
+              value: goldenwaste  
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+ selector:
+    app: mysql
+ type: ClusterIP
+ ports:
+    - protocol: TCP
+      port: 3306
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  labels:
+    app: webserver
+spec:
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+        - image: chandradeoarya/goldenwaste-sda-hackathon:latest
+          name: webserver
+          env:
+            - name: GOLDEN_DB_URL
+              value: mysql
+            - name: GOLDEN_DB_PORT
+              value: '3306'  
+            - name: GOLDEN_DB_NAME
+              value: goldenwaste  
+            - name: GOLDEN_DB_USERNAME
+              value: root  
+            - name: GOLDEN_DB_PASSWORD
+              value: DevOps2022
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+ selector:
+   app: webserver
+ type: NodePort
+ ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30454
+  
+
