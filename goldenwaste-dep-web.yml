@@ -13,7 +13,7 @@ spec:
         app: goldenwaste
     spec:
       containers:
-        - image: abdullah01455/goldenwebapp
+        - image: chandradeoarya/goldenwaste-sda-hackathon:latest
           name: web
           env:
             - name: GOLDEN_DB_URL
