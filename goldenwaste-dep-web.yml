@@ -13,7 +13,8 @@ spec:
         app: goldenwaste
     spec:
       containers:
-        - name: web
+        - image: abdullah01455/goldenwebapp
+          name: web
           env:
             - name: GOLDEN_DB_URL
               value: mysql
@@ -25,7 +26,6 @@ spec:
               value: root  
             - name: GOLDEN_DB_PASSWORD
               value: DevOps2022 
-          image: abdullah01455/goldenwebapp
           ports:
           - containerPort: 80
 
