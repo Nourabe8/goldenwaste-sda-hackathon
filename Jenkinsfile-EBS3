@@ -32,8 +32,7 @@ pipeline {
 		stage('Push') {
 
 			steps {
-				sh 'docker push hayaalnafisa/goldenwaste:1.0
-				'
+				sh 'docker push hayaalnafisa/goldenwaste:1.0'
 			}
 		}
 
