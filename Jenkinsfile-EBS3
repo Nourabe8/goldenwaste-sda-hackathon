@@ -18,7 +18,7 @@ pipeline {
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t hayaalnafisa/goldenwaste:2.0
+				sh 'docker build -t hayaalnafisa/goldenwaste:1.0
 				.'
 			}
 		}
@@ -33,7 +33,7 @@ pipeline {
 		stage('Push') {
 
 			steps {
-				sh 'docker push hayaalnafisa/goldenwaste:2.0
+				sh 'docker push hayaalnafisa/goldenwaste:1.0
 				'
 			}
 		}
