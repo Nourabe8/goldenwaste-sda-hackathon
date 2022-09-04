@@ -4,12 +4,12 @@ pipeline {
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('belt-token')
-		AWS_ACCESS_KEY_ID     = credentials('Access_key_ID')
-  		AWS_SECRET_ACCESS_KEY = credentials('Secret_access_key')
+		AWS_ACCESS_KEY_ID     = credentials('haya-aws-secret-key-id')
+  		AWS_SECRET_ACCESS_KEY = credentials('haya-aws-secret-access-key')
 		ARTIFACT_NAME = 'hackathon.json'
-		AWS_S3_BUCKET = 'recycle-hackathon-2022'
-		AWS_EB_APP_NAME = 'goldenWaste'
-        AWS_EB_ENVIRONMENT_NAME = 'Goldenwaste-env'
+		AWS_S3_BUCKET = 'haya-jenkins-s3'
+		AWS_EB_APP_NAME = 'devops-Jenkins'
+        AWS_EB_ENVIRONMENT_NAME = 'Devopsjenkins-env'
         AWS_EB_APP_VERSION = "${BUILD_ID}"
 	}
 
@@ -18,7 +18,8 @@ pipeline {
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t chandradeoarya/goldenwaste:1.0 .'
+				sh 'docker build -t hayaalnafisa/goldenwaste:2.0
+				.'
 			}
 		}
 
@@ -32,7 +33,8 @@ pipeline {
 		stage('Push') {
 
 			steps {
-				sh 'docker push chandradeoarya/goldenwaste:1.0'
+				sh 'docker push hayaalnafisa/goldenwaste:2.0
+				'
 			}
 		}
 
