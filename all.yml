@@ -87,7 +87,7 @@ spec:
         app: webserver
     spec:
       containers:
-        - image: chandradeoarya/goldenwaste-sda-hackathon:latest
+        - image: hayaalnafisa/goldenwaste:1.0
           name: webserver
           env:
             - name: GOLDEN_DB_URL
